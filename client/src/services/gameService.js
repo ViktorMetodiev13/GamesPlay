@@ -7,3 +7,9 @@ export const getAll = async () => {
 
     return Object.values(games);
 };
+
+export const createGame = async (data) => {
+    const result = await request.post(baseUrl, data);
+
+    return result;
+};
