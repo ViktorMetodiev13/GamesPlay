@@ -9,6 +9,7 @@ import { CreateGame } from "./components/CreateGame/CreateGame";
 import { Catalog } from "./components/Catalog/Catalog";
 
 import * as gameService from "./services/gameService";
+import { GameDetails } from "./components/GameDetails/GameDetails";
 
 function App() {
     const [games, setGames] = useState([]);
@@ -41,6 +42,7 @@ function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/create-game" element={<CreateGame onCreateGameSubmit={onCreateGameSubmit} />} />
                     <Route path="/catalog" element={<Catalog games={games}/>} />
+                    <Route path="/catalog/:gameId" element={<GameDetails />} />
                 </Routes>
             </main>
 
