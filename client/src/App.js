@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, useNavigate, redirect } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 import * as gameService from "./services/gameService";
 import * as authService from "./services/authService";
@@ -40,7 +40,7 @@ function App() {
             const result = await authService.login(data);
 
             setAuth(result);
-            
+
             navigate("/catalog");
         } catch (error) {
             console.log('There is a problem');
@@ -48,8 +48,16 @@ function App() {
 
     };
 
+    const context = {
+        onLoginSubmit,
+        userId: auth._id,
+        token: auth.accessToken,
+        userEmail: auth.email,
+        isAuthenticated: !!auth.accessToken
+    }
+
     return (
-        <AuthContext.Provider value={{ onLoginSubmit }}>
+        <AuthContext.Provider value={context}>
             <div id="box">
                 <Header />
 
