@@ -34,10 +34,8 @@ function App() {
         navigate('/catalog');
     };
 
-    const onLoginSubmit = async (e) => {
-        e.preventDefault();
-
-        console.log(Object.fromEntries(new FormData(e.target)));
+    const onLoginSubmit = async (values) => {
+        console.log(values);
     };
 
     return (

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 
 import { AuthContext } from "../../contexts/AuthContext";
 import { useForm } from "../../hooks/useForm";
@@ -8,7 +8,7 @@ export const Login = () => {
     const { values, changeHandler } = useForm({
         email: '',
         password: '',
-    })
+    }, onLoginSubmit)
 
     return (
         <section id="login-page" className="auth">
