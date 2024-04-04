@@ -34,12 +34,12 @@ function App() {
         navigate('/catalog');
     };
 
-    const onLoginSubmit = async (values) => {
-        console.log(values);
+    const onLoginSubmit = async (data) => {
+        console.log(data);
     };
 
     return (
-        <AuthContext.Provider value={{onLoginSubmit}}>
+        <AuthContext.Provider value={{ onLoginSubmit }}>
             <div id="box">
                 <Header />
 
