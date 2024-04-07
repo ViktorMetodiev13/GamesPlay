@@ -12,6 +12,7 @@ import { Register } from "./components/Register/Register";
 import { CreateGame } from "./components/CreateGame/CreateGame";
 import { Catalog } from "./components/Catalog/Catalog";
 import { GameDetails } from "./components/GameDetails/GameDetails";
+import { Logout } from "./components/Logout/Logout";
 
 
 function App() {
@@ -66,8 +67,9 @@ function App() {
     };
 
     const onLogout = async () => {
-        await authService.logout();
+        // await authService.logout();
 
+        // Clears the session on the client side only
         setAuth({});
     };
 
@@ -90,6 +92,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />
+                        <Route path="/logout" element={<Logout />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/create-game" element={<CreateGame onCreateGameSubmit={onCreateGameSubmit} />} />
                         <Route path="/catalog" element={<Catalog games={games} />} />
