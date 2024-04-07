@@ -48,10 +48,14 @@ function App() {
     };
 
     const onRegisterSubmit = async (data) => {
-        const {}
+        const { confirmPassword, ...registerData } = data;
+
+        if (confirmPassword !== registerData.password) {
+            return;
+        }
 
         try {
-            const result = await authService.register(data);
+            const result = await authService.register(registerData);
 
             setAuth(result);
 

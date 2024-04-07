@@ -35,6 +35,7 @@ export const Register = () => {
                         name="password"
                         id="register-password"
                         value={values.password}
+                        onChange={changeHandler}
                     />
 
                     <label htmlFor="con-pass">Confirm Password:</label>
