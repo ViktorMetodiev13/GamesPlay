@@ -65,9 +65,16 @@ function App() {
         }
     };
 
+    const onLogout = async () => {
+        await authService.logout();
+
+        setAuth({});
+    };
+
     const context = {
         onLoginSubmit,
         onRegisterSubmit,
+        onLogout,
         userId: auth._id,
         token: auth.accessToken,
         userEmail: auth.email,
