@@ -63,7 +63,7 @@ function App() {
         } catch (error) {
             console.log('There is a problem');
         }
-    }
+    };
 
     const context = {
         onLoginSubmit,
