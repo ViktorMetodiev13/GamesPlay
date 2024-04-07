@@ -45,11 +45,25 @@ function App() {
         } catch (error) {
             console.log('There is a problem');
         }
-
     };
+
+    const onRegisterSubmit = async (data) => {
+        const {}
+
+        try {
+            const result = await authService.register(data);
+
+            setAuth(result);
+
+            navigate("/catalog");
+        } catch (error) {
+            console.log('There is a problem');
+        }
+    }
 
     const context = {
         onLoginSubmit,
+        onRegisterSubmit,
         userId: auth._id,
         token: auth.accessToken,
         userEmail: auth.email,
