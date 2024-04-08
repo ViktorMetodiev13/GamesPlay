@@ -14,6 +14,7 @@ import { CreateGame } from "./components/CreateGame/CreateGame";
 import { Catalog } from "./components/Catalog/Catalog";
 import { GameDetails } from "./components/GameDetails/GameDetails";
 import { Logout } from "./components/Logout/Logout";
+import { EditGame } from "./components/EditGame/EditGame";
 
 
 function App() {
@@ -81,6 +82,15 @@ function App() {
         navigate('/catalog');
     };
 
+    const onGameEditSubmit = async (values) => {
+        const gameId = values._id;
+        const result = await gameService.edit(gameId, values);
+
+        setGames(state => state.map(g => g._id === values._id ? result : g));
+
+        navigate(`/catalog/${gameId}`);
+    };
+
     const contextValues = {
         onLoginSubmit,
         onRegisterSubmit,
@@ -90,7 +100,7 @@ function App() {
         token: auth.accessToken,
         userEmail: auth.email,
         isAuthenticated: !!auth.accessToken
-    }
+    };
 
     return (
         <AuthContext.Provider value={contextValues}>
@@ -106,6 +116,7 @@ function App() {
                         <Route path="/create-game" element={<CreateGame onCreateGameSubmit={onCreateGameSubmit} />} />
                         <Route path="/catalog" element={<Catalog games={games} />} />
                         <Route path="/catalog/:gameId" element={<GameDetails />} />
+                        <Route path="/catalog/:gameId/edit" element={<EditGame onGameEditSubmit={onGameEditSubmit} />} />
                     </Routes>
                 </main>
 
