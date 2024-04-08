@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-import * as gameService from "./services/gameService";
-import * as authService from "./services/authService";
+import { gameServiceFactory } from "./services/gameService";
+import { AuthServiceFactory } from "./services/authService";
 import { AuthContext } from "./contexts/AuthContext";
+import { useService } from "./hooks/useService";
 
 import { Header } from "./components/Header/Header";
 import { Home } from "./components/Home/Home";
@@ -19,6 +20,8 @@ function App() {
     const navigate = useNavigate();
     const [games, setGames] = useState([]);
     const [auth, setAuth] = useState({});
+    const gameService = gameServiceFactory(auth.accessToken);
+    const authService = AuthServiceFactory(auth.accessToken);
 
     useEffect(() => {
         gameService.getAll()
@@ -67,13 +70,12 @@ function App() {
     };
 
     const onLogout = async () => {
-        // await authService.logout();
+        await authService.logout();
 
-        // Clears the session on the client side only
         setAuth({});
     };
 
-    const context = {
+    const contextValues = {
         onLoginSubmit,
         onRegisterSubmit,
         onLogout,
@@ -84,7 +86,7 @@ function App() {
     }
 
     return (
-        <AuthContext.Provider value={context}>
+        <AuthContext.Provider value={contextValues}>
             <div id="box">
                 <Header />
 

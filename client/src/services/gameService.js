@@ -1,27 +1,39 @@
-import * as request from "./requester";
+import { requestFactory } from "./requester";
 
-const baseUrl = 'http://localhost:3030/jsonstore/games';
+const baseUrl = 'http://localhost:3030/data/games';
 
-export const getAll = async () => {
-    const games = await request.get(baseUrl);
 
-    return Object.values(games);
-};
+export const gameServiceFactory = (token) => {
+    const request = requestFactory(token);
 
-export const getOne = async (gameId) => {
-    const result = await request.get(`${baseUrl}/${gameId}`);
+    const getAll = async () => {
+        const games = await request.get(baseUrl);
 
-    return result;
-};
+        return Object.values(games);
+    };
 
-export const createGame = async (data) => {
-    const result = await request.post(baseUrl, data);
+    const getOne = async (gameId) => {
+        const result = await request.get(`${baseUrl}/${gameId}`);
 
-    return result;
-};
+        return result;
+    };
 
-export const addComment = async (gameId, data) => {
-    const result = await request.post(`${baseUrl}/${gameId}/comments`, data);
+    const createGame = async (data) => {
+        const result = await request.post(baseUrl, data);
 
-    return result;
-};
+        return result;
+    };
+
+    const addComment = async (gameId, data) => {
+        const result = await request.post(`${baseUrl}/${gameId}/comments`, data);
+
+        return result;
+    };
+
+    return {
+        getAll,
+        getOne,
+        createGame,
+        addComment
+    };
+}
