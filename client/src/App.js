@@ -76,11 +76,11 @@ function App() {
         setAuth({});
     };
 
-    const onDeleteGameClick = (gameId) => {
-        setGames(games.filter(g => g.id !== gameId));
+    // const onDeleteGameSubmit = (gameId) => {
+    //     setGames((state) => state.filter(g => g._id !== gameId));
 
-        navigate('/catalog');
-    };
+    //     navigate('/catalog');
+    // };
 
     const onGameEditSubmit = async (values) => {
         const gameId = values._id;
@@ -95,7 +95,7 @@ function App() {
         onLoginSubmit,
         onRegisterSubmit,
         onLogout,
-        onDeleteGameClick,
+        // onDeleteGameSubmit,
         userId: auth._id,
         token: auth.accessToken,
         userEmail: auth.email,

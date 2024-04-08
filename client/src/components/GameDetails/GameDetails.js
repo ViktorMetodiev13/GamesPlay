@@ -1,17 +1,18 @@
 import { useEffect, useState, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import { gameServiceFactory } from '../../services/gameService';
 import { useService } from "../../hooks/useService";
 import { AuthContext } from "../../contexts/AuthContext";
 
 export const GameDetails = () => {
-    const { userId, onDeleteGameClick } = useContext(AuthContext)
+    const { userId, onDeleteGameSubmit } = useContext(AuthContext);
     const { gameId } = useParams();
     const [game, setGame] = useState({});
     const [comment, setComment] = useState('');
     const [username, setUsername] = useState('');
     const gameService = useService(gameServiceFactory);
+    const navigate = useNavigate();
 
     useEffect(() => {
         gameService.getOne(gameId)
@@ -40,9 +41,9 @@ export const GameDetails = () => {
     const isOwner = game._ownerId === userId;
 
     const onDeleteGame = async () => {
-        await gameService.delete(game._id);
-
-        onDeleteGameClick(game._id);
+        await gameService.delete(gameId);
+        
+        navigate('/catalog');
     };
 
     return (
