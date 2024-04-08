@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import { gameServiceFactory } from '../../services/gameService';
 import { useService } from "../../hooks/useService";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export const GameDetails = () => {
+    const { userId, onDeleteGameClick } = useContext(AuthContext)
     const { gameId } = useParams();
     const [game, setGame] = useState({});
     const [comment, setComment] = useState('');
@@ -19,7 +21,7 @@ export const GameDetails = () => {
             .catch((err) => {
                 console.log("Error " + err);
             });
-    }, [gameId])
+    }, [gameId]);
 
     const onCommentSubmit = async (e) => {
         e.preventDefault();
@@ -33,7 +35,15 @@ export const GameDetails = () => {
 
         setUsername('');
         setComment('');
-    }
+    };
+
+    const isOwner = game._ownerId === userId;
+
+    const onDeleteGame = async () => {
+        await gameService.delete(game._id);
+
+        onDeleteGameClick(game._id);
+    };
 
     return (
         <section id="game-details">
@@ -64,11 +74,12 @@ export const GameDetails = () => {
                     )}
                 </div>
 
-                {/* <!-- Edit/Delete buttons ( Only for creator of this game )  --> */}
-                <div className="buttons">
-                    <a href="#" className="button">Edit</a>
-                    <a href="#" className="button">Delete</a>
-                </div>
+                {isOwner && (
+                    <div className="buttons">
+                        <a href="#" className="button">Edit</a>
+                        <button className="button" onClick={onDeleteGame}>Delete</button>
+                    </div>
+                )}
             </div>
 
             {/* <!-- Bonus --> */}

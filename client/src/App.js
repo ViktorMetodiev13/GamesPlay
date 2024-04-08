@@ -75,10 +75,17 @@ function App() {
         setAuth({});
     };
 
+    const onDeleteGameClick = (gameId) => {
+        setGames(games.filter(g => g.id !== gameId));
+
+        navigate('/catalog');
+    };
+
     const contextValues = {
         onLoginSubmit,
         onRegisterSubmit,
         onLogout,
+        onDeleteGameClick,
         userId: auth._id,
         token: auth.accessToken,
         userEmail: auth.email,

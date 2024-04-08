@@ -30,10 +30,15 @@ export const gameServiceFactory = (token) => {
         return result;
     };
 
+    const deleteGame = async (gameId) => {
+        await request.delete(`${baseUrl}/${gameId}`);
+    };
+
     return {
         getAll,
         getOne,
         createGame,
-        addComment
+        addComment,
+        delete: deleteGame
     };
 }
