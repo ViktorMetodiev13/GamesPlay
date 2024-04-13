@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
+import { AuthProvider } from './contexts/AuthContext';
+
 import { gameServiceFactory } from "./services/gameService";
-import { AuthServiceFactory } from "./services/authService";
-import { AuthContext } from "./contexts/AuthContext";
-import { useService } from "./hooks/useService";
 
 import { Header } from "./components/Header/Header";
 import { Home } from "./components/Home/Home";
@@ -20,9 +19,7 @@ import { EditGame } from "./components/EditGame/EditGame";
 function App() {
     const navigate = useNavigate();
     const [games, setGames] = useState([]);
-    const [auth, setAuth] = useState({});
-    const gameService = gameServiceFactory(auth.accessToken);
-    const authService = AuthServiceFactory(auth.accessToken);
+    const gameService = gameServiceFactory(); //auth.accessToken
 
     useEffect(() => {
         gameService.getAll()
@@ -40,48 +37,6 @@ function App() {
         navigate('/catalog');
     };
 
-    const onLoginSubmit = async (data) => {
-        try {
-            const result = await authService.login(data);
-
-            setAuth(result);
-
-            navigate("/catalog");
-        } catch (error) {
-            console.log('There is a problem');
-        }
-    };
-
-    const onRegisterSubmit = async (data) => {
-        const { confirmPassword, ...registerData } = data;
-
-        if (confirmPassword !== registerData.password) {
-            return;
-        }
-
-        try {
-            const result = await authService.register(registerData);
-
-            setAuth(result);
-
-            navigate("/catalog");
-        } catch (error) {
-            console.log('There is a problem');
-        }
-    };
-
-    const onLogout = async () => {
-        await authService.logout();
-
-        setAuth({});
-    };
-
-    // const onDeleteGameSubmit = (gameId) => {
-    //     setGames((state) => state.filter(g => g._id !== gameId));
-
-    //     navigate('/catalog');
-    // };
-
     const onGameEditSubmit = async (values) => {
         const gameId = values._id;
         const result = await gameService.edit(gameId, values);
@@ -91,19 +46,8 @@ function App() {
         navigate(`/catalog/${gameId}`);
     };
 
-    const contextValues = {
-        onLoginSubmit,
-        onRegisterSubmit,
-        onLogout,
-        // onDeleteGameSubmit,
-        userId: auth._id,
-        token: auth.accessToken,
-        userEmail: auth.email,
-        isAuthenticated: !!auth.accessToken
-    };
-
     return (
-        <AuthContext.Provider value={contextValues}>
+        <AuthProvider>
             <div id="box">
                 <Header />
 
@@ -121,7 +65,7 @@ function App() {
                 </main>
 
             </div>
-        </AuthContext.Provider>
+        </AuthProvider>
     );
 }
 
