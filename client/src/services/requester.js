@@ -34,7 +34,7 @@ export const request = async (method, token, url, data) => {
 export const requestFactory = (token) => {
     if (!token) {
         const serializedAuth = localStorage.getItem('auth');
-
+        
         if (serializedAuth) {
             const auth = JSON.parse(serializedAuth);
             token = auth.accessToken;
