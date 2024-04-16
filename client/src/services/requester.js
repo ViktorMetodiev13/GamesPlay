@@ -32,11 +32,20 @@ export const request = async (method, token, url, data) => {
 };
 
 export const requestFactory = (token) => {
+    if (!token) {
+        const serializedAuth = localStorage.getItem('auth');
+
+        if (serializedAuth) {
+            const auth = JSON.parse(serializedAuth);
+            token = auth.accessToken;
+        };
+    };
+
     return {
         get: request.bind(null, 'GET', token),
         post: request.bind(null, 'POST', token),
         put: request.bind(null, 'PUT', token),
         patc: request.bind(null, 'PATCH', token),
         delete: request.bind(null, 'DELETE', token),
-    }
+    };
 };

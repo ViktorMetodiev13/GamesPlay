@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 import { AuthProvider } from './contexts/AuthContext';
-
 import { gameServiceFactory } from "./services/gameService";
 
 import { Header } from "./components/Header/Header";
