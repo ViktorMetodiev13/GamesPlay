@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-import * as commentService from "../../services/commentService";
 import { gameServiceFactory } from '../../services/gameService';
+import * as commentService from "../../services/commentService";
 import { useService } from "../../hooks/useService";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { gameReducer } from "../../reducers/gameReducer";
 
 import { AddComment } from "./AddComment/AddComment";
 
 export const GameDetails = () => {
     const { gameId } = useParams();
-    const { userId, isAuthenticated } = useAuthContext();
-    const [game, setGame] = useState({});
+    const { userId, isAuthenticated, userEmail } = useAuthContext();
+    const [game, dispatch] = useReducer(gameReducer, {});
     const gameService = useService(gameServiceFactory);
     const navigate = useNavigate();
 
@@ -21,20 +22,23 @@ export const GameDetails = () => {
             commentService.getAll(gameId),
         ])
             .then(([gameData, comments]) => {
-                setGame({
+                const gameState = {
                     ...gameData,
-                    comments,
-                });
+                    comments
+                };
+
+                dispatch({type: 'GAME_FETCH', payload: gameState});
             });
     }, [gameId]);
 
     const onCommentSubmit = async (values) => {
         const response = await commentService.create(gameId, values.comment);
 
-        setGame(state => ({
-            ...state,
-            comments: [...state.comments, response]
-        }));
+        dispatch({
+            type: 'COMMENT_ADD',
+            payload: response,
+            email: userEmail,
+        });
     };
 
     const isOwner = game._ownerId === userId;
@@ -64,12 +68,12 @@ export const GameDetails = () => {
                     <ul>
                         {game.comments && game.comments.map(c => (
                             <li key={c._id} className="comment">
-                                <p>{c.comment}</p>
+                                <p>{c.author.email}: {c.comment}</p>
                             </li>
                         ))}
                     </ul>
 
-                    {!game.comments && (
+                    {!game.comments?.length && (
                         <p className="no-comment">No comments.</p>
                     )}
                 </div>
