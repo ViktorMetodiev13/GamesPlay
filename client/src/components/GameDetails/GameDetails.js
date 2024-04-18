@@ -17,7 +17,7 @@ export const GameDetails = () => {
 
     useEffect(() => {
         Promise.all([
-        gameService.getOne(gameId),
+            gameService.getOne(gameId),
             commentService.getAll(gameId),
         ])
             .then(([gameData, comments]) => {
@@ -30,8 +30,6 @@ export const GameDetails = () => {
 
     const onCommentSubmit = async (values) => {
         const response = await commentService.create(gameId, values.comment);
-
-        console.log(response);
 
         setGame(state => ({
             ...state,
