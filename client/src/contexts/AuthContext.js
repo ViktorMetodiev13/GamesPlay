@@ -1,18 +1,18 @@
-import { createContext, useContext } from 'react';
-import { useNavigate } from "react-router-dom";
+import { createContext, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
-import { AuthServiceFactory } from "../services/authService";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { authServiceFactory } from '../services/authService';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({
-    children
+    children,
 }) => {
     const [auth, setAuth] = useLocalStorage('auth', {});
     const navigate = useNavigate();
 
-    const authService = AuthServiceFactory(auth.accessToken);
+    const authService = authServiceFactory(auth.accessToken)
 
     const onLoginSubmit = async (data) => {
         try {
@@ -20,15 +20,14 @@ export const AuthProvider = ({
 
             setAuth(result);
 
-            navigate("/catalog");
+            navigate('/catalog');
         } catch (error) {
             console.log('There is a problem');
         }
     };
 
-    const onRegisterSubmit = async (data) => {
-        const { confirmPassword, ...registerData } = data;
-
+    const onRegisterSubmit = async (values) => {
+        const { confirmPassword, ...registerData } = values;
         if (confirmPassword !== registerData.password) {
             return;
         }
@@ -38,7 +37,7 @@ export const AuthProvider = ({
 
             setAuth(result);
 
-            navigate("/catalog");
+            navigate('/catalog');
         } catch (error) {
             console.log('There is a problem');
         }
@@ -57,14 +56,16 @@ export const AuthProvider = ({
         userId: auth._id,
         token: auth.accessToken,
         userEmail: auth.email,
-        isAuthenticated: !!auth.accessToken
+        isAuthenticated: !!auth.accessToken,
     };
 
     return (
-        <AuthContext.Provider value={contextValues}>
-            {children}
-        </AuthContext.Provider>
-    )
+        <>
+            <AuthContext.Provider value={contextValues}>
+                {children}
+            </AuthContext.Provider>
+        </>
+    );
 };
 
 export const useAuthContext = () => {

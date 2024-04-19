@@ -1,36 +1,35 @@
-import { useEffect, useReducer } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState, useReducer } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
 import { gameServiceFactory } from '../../services/gameService';
-import * as commentService from "../../services/commentService";
-import { useService } from "../../hooks/useService";
-import { useAuthContext } from "../../contexts/AuthContext";
-import { gameReducer } from "../../reducers/gameReducer";
+import * as commentService from '../../services/commentService';
+import { useService } from '../../hooks/useService';
+import { useAuthContext } from '../../contexts/AuthContext';
 
-import { AddComment } from "./AddComment/AddComment";
-import { useGameContext } from "../../contexts/GameContext";
+import { AddComment } from './AddComment/AddComment';
+import { gameReducer } from '../../reducers/gameReducer';
+import { useGameContext } from '../../contexts/GameContext';
 
 export const GameDetails = () => {
     const { gameId } = useParams();
-    const { deleteGame } = useGameContext();
     const { userId, isAuthenticated, userEmail } = useAuthContext();
+    const { deleteGame } = useGameContext();
     const [game, dispatch] = useReducer(gameReducer, {});
-    const gameService = useService(gameServiceFactory);
+    const gameService = useService(gameServiceFactory)
     const navigate = useNavigate();
 
     useEffect(() => {
         Promise.all([
             gameService.getOne(gameId),
             commentService.getAll(gameId),
-        ])
-            .then(([gameData, comments]) => {
-                const gameState = {
-                    ...gameData,
-                    comments
-                };
+        ]).then(([gameData, comments]) => {
+            const gameState = {
+                ...gameData,
+                comments,
+            };
 
-                dispatch({ type: 'GAME_FETCH', payload: gameState });
-            });
+            dispatch({ type: 'GAME_FETCH', payload: gameState });
+        });
     }, [gameId]);
 
     const onCommentSubmit = async (values) => {
@@ -39,22 +38,23 @@ export const GameDetails = () => {
         dispatch({
             type: 'COMMENT_ADD',
             payload: response,
-            email: userEmail,
+            userEmail,
         });
     };
 
     const isOwner = game._ownerId === userId;
 
-    const onDeleteGame = async () => {
-        const result = window.confirm(`Are you sure you want to delete ${game.title}`);
+    const onDeleteClick = async () => {
+        // eslint-disable-next-line no-restricted-globals
+        const result = confirm(`Are you sure you want to delete ${game.title}`);
 
         if (result) {
-            await gameService.delete(gameId);
+            await gameService.delete(game._id);
 
             deleteGame(game._id);
-            
+
             navigate('/catalog');
-        };
+        }
     };
 
     return (
@@ -63,7 +63,7 @@ export const GameDetails = () => {
             <div className="info-section">
 
                 <div className="game-header">
-                    <img className="game-img" src={game.imageUrl} alt={`${game.title} image`} />
+                    <img className="game-img" src={game.imageUrl} />
                     <h1>{game.title}</h1>
                     <span className="levels">MaxLevel: {game.maxLevel}</span>
                     <p className="type">{game.category}</p>
@@ -74,9 +74,9 @@ export const GameDetails = () => {
                 <div className="details-comments">
                     <h2>Comments:</h2>
                     <ul>
-                        {game.comments && game.comments.map(c => (
-                            <li key={c._id} className="comment">
-                                <p>{c.author.email}: {c.comment}</p>
+                        {game.comments && game.comments.map(x => (
+                            <li key={x._id} className="comment">
+                                <p>{x.author.email}: {x.comment}</p>
                             </li>
                         ))}
                     </ul>
@@ -89,13 +89,12 @@ export const GameDetails = () => {
                 {isOwner && (
                     <div className="buttons">
                         <Link to={`/catalog/${game._id}/edit`} className="button">Edit</Link>
-                        <button className="button" onClick={onDeleteGame}>Delete</button>
+                        <button className="button" onClick={onDeleteClick}>Delete</button>
                     </div>
                 )}
             </div>
 
             {isAuthenticated && <AddComment onCommentSubmit={onCommentSubmit} />}
-
         </section>
     );
-}
+};

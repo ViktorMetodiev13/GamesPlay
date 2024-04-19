@@ -1,13 +1,22 @@
-import { useAuthContext } from "../../contexts/AuthContext";
-import { useForm } from "../../hooks/useForm";
 import { Link } from "react-router-dom";
 
-export const Login = () => {
+import { useAuthContext } from "../../contexts/AuthContext";
+import { useForm } from "../../hooks/useForm";
+
+const LoginFormKeys = {
+    Email: 'email',
+    Password: 'password'
+};
+
+export const Login = ({
+    // auth,
+}) => {
+    // const { onLoginSubmit } = auth;
     const { onLoginSubmit } = useAuthContext();
     const { values, changeHandler, onSubmit } = useForm({
-        email: '',
-        password: '',
-    }, onLoginSubmit)
+        [LoginFormKeys.Email]: '',
+        [LoginFormKeys.Password]: '',
+    }, onLoginSubmit);
 
     return (
         <section id="login-page" className="auth">
@@ -20,8 +29,8 @@ export const Login = () => {
                         type="email"
                         id="email"
                         placeholder="Sokka@gmail.com"
-                        name="email"
-                        value={values.email}
+                        name={LoginFormKeys.Email}
+                        value={values[LoginFormKeys.Email]}
                         onChange={changeHandler}
                     />
 
@@ -29,8 +38,8 @@ export const Login = () => {
                     <input
                         type="password"
                         id="login-password"
-                        name="password"
-                        value={values.password}
+                        name={LoginFormKeys.Password}
+                        value={values[LoginFormKeys.Password]}
                         onChange={changeHandler}
                     />
                     <input type="submit" className="btn submit" value="Login" />
@@ -42,3 +51,5 @@ export const Login = () => {
         </section>
     );
 }
+
+// export default withAuth(Login);

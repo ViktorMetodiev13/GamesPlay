@@ -1,20 +1,20 @@
 import { useContext } from "react";
-
-import { AuthContext } from "../../contexts/AuthContext";
-import { useForm } from "../../hooks/useForm";
 import { Link } from "react-router-dom";
+
+import { useForm } from "../../hooks/useForm";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export const Register = () => {
     const { onRegisterSubmit } = useContext(AuthContext);
     const { values, changeHandler, onSubmit } = useForm({
         email: '',
         password: '',
-        confirmPassword: ''
-    }, onRegisterSubmit)
+        confirmPassword: '',
+    }, onRegisterSubmit);
 
     return (
         <section id="register-page" className="content auth">
-            <form id="register" onSubmit={onSubmit}>
+            <form id="register" method="post" onSubmit={onSubmit}>
                 <div className="container">
                     <div className="brand-logo"></div>
                     <h1>Register</h1>
@@ -55,5 +55,6 @@ export const Register = () => {
                 </div>
             </form>
         </section>
+
     );
-}
+};

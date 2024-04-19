@@ -1,9 +1,8 @@
-import { useService } from "../hooks/useService";
-import { requestFactory } from "./requester";
+import { requestFactory } from './requester';
 
-const baseUrl = 'http://localhost:3030/users';
+const baseUrl = `http://localhost:3030/users`;
 
-export const AuthServiceFactory = (token) => {
+export const authServiceFactory = (token) => {
     const request = requestFactory(token);
 
     return {
@@ -11,4 +10,4 @@ export const AuthServiceFactory = (token) => {
         register: (data) => request.post(`${baseUrl}/register`, data),
         logout: () => request.get(`${baseUrl}/logout`),
     }
-}
+};

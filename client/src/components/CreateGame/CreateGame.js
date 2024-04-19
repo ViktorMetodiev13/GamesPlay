@@ -1,22 +1,22 @@
-import { useForm } from "../../hooks/useForm";
-import { useGameContext } from "../../contexts/GameContext";
+import { useGameContext } from '../../contexts/GameContext';
+import { useForm } from '../../hooks/useForm';
 
 export const CreateGame = () => {
-    const { onCreateGameSubmit } = useGameContext();
+    const {onCreateGameSubmit} = useGameContext();
     const { values, changeHandler, onSubmit } = useForm({
         title: '',
         category: '',
         maxLevel: '',
         imageUrl: '',
-        summary: ''
+        summary: '',
     }, onCreateGameSubmit);
 
     return (
         <section id="create-page" className="auth">
-            <form id="create" onSubmit={onSubmit}>
+            <form id="create" method="post" onSubmit={onSubmit}>
                 <div className="container">
-
                     <h1>Create Game</h1>
+
                     <label htmlFor="leg-title">Legendary title:</label>
                     <input value={values.title} onChange={changeHandler} type="text" id="title" name="title" placeholder="Enter game title..." />
 
@@ -30,10 +30,10 @@ export const CreateGame = () => {
                     <input value={values.imageUrl} onChange={changeHandler} type="text" id="imageUrl" name="imageUrl" placeholder="Upload a photo..." />
 
                     <label htmlFor="summary">Summary:</label>
-                    <textarea value={values.summary} onChange={changeHandler} name="summary" id="summary"></textarea>
+                    <textarea name="summary" id="summary" value={values.summary} onChange={changeHandler}></textarea>
                     <input className="btn submit" type="submit" value="Create Game" />
                 </div>
             </form>
         </section>
     );
-}
+};

@@ -8,9 +8,14 @@ export const Catalog = () => {
     return (
         <section id="catalog-page">
             <h1>All Games</h1>
-            {games.map(g => <CatalogItem key={g._id} {...g} />)}
 
-            {games.length === 0 && <h3 className="no-articles">No articles yet</h3>}
-        </section >
+            {games.map(x =>
+                <CatalogItem key={x._id} {...x} />
+            )}
+
+            {games.length === 0 && (
+                <h3 className="no-articles">No articles yet</h3>
+            )}
+        </section>
     );
-}
+};

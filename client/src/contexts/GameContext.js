@@ -1,12 +1,12 @@
-import { createContext, useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { createContext, useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { gameServiceFactory } from "../services/gameService";
+import { gameServiceFactory } from '../services/gameService';
 
 export const GameContext = createContext();
 
 export const GameProvider = ({
-    children
+    children,
 }) => {
     const navigate = useNavigate();
     const [games, setGames] = useState([]);
@@ -15,31 +15,27 @@ export const GameProvider = ({
     useEffect(() => {
         gameService.getAll()
             .then(result => {
-                setGames(result);
+                setGames(result)
             })
-            .catch((err) => {
-                console.log("Error " + err);
-            });
     }, []);
 
     const onCreateGameSubmit = async (data) => {
-        const newGame = await gameService.createGame(data);
+        const newGame = await gameService.create(data);
 
-        setGames(state => ([...state, newGame]));
+        setGames(state => [...state, newGame]);
 
         navigate('/catalog');
     };
 
     const onGameEditSubmit = async (values) => {
-        const gameId = values._id;
-        const result = await gameService.edit(gameId, values);
+        const result = await gameService.edit(values._id, values);
 
-        setGames(state => state.map(g => g._id === values._id ? result : g));
+        setGames(state => state.map(x => x._id === values._id ? result : x))
 
-        navigate(`/catalog/${gameId}`);
+        navigate(`/catalog/${values._id}`);
     };
 
-    const deleteGame = async (gameId) => {
+    const deleteGame = (gameId) => {
         setGames(state => state.filter(game => game._id !== gameId));
     };
 
@@ -49,9 +45,9 @@ export const GameProvider = ({
 
     const contextValues = {
         games,
-        deleteGame,
         onCreateGameSubmit,
         onGameEditSubmit,
+        deleteGame,
         getGame,
     };
 

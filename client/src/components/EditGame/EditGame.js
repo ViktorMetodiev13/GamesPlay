@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useGameContext } from "../../contexts/GameContext";
 
-import { useForm } from "../../hooks/useForm"
+import { useForm } from "../../hooks/useForm";
 import { useService } from "../../hooks/useService";
 import { gameServiceFactory } from "../../services/gameService";
-import { useGameContext } from "../../contexts/GameContext";
 
 export const EditGame = () => {
     const { onGameEditSubmit } = useGameContext();
@@ -28,7 +28,7 @@ export const EditGame = () => {
 
     return (
         <section id="edit-page" className="auth">
-            <form id="edit" onSubmit={onSubmit}>
+            <form id="edit" method="post" onSubmit={onSubmit}>
                 <div className="container">
 
                     <h1>Edit Game</h1>
@@ -70,16 +70,11 @@ export const EditGame = () => {
                     />
 
                     <label htmlFor="summary">Summary:</label>
-                    <textarea
-                        name="summary"
-                        id="summary"
-                        value={values.summary}
-                        onChange={changeHandler}
-                    ></textarea>
+                    <textarea name="summary" id="summary" value={values.summary} onChange={changeHandler}></textarea>
                     <input className="btn submit" type="submit" value="Edit Game" />
 
                 </div>
             </form>
         </section>
-    )
-}
+    );
+};

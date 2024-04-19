@@ -1,9 +1,10 @@
-import { Navigate, Outlet, useParams } from "react-router-dom";
+import { useParams, Outlet, Navigate } from 'react-router-dom';
+import { useAuthContext } from '../../contexts/AuthContext';
+
 import { useGameContext } from "../../contexts/GameContext";
-import { useAuthContext } from "../../contexts/AuthContext";
 
 export const GameOwner = ({
-    children
+    children,
 }) => {
     const { gameId } = useParams();
     const { getGame } = useGameContext();
