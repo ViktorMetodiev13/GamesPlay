@@ -13,6 +13,7 @@ import { GameDetails } from "./components/GameDetails/GameDetails";
 import { Logout } from "./components/Logout/Logout";
 import { EditGame } from "./components/EditGame/EditGame";
 import { RouteGuard } from "./components/Common/RouteGuard";
+import { GameOwner } from "./components/Common/GameOwner";
 
 
 function App() {
@@ -31,13 +32,17 @@ function App() {
                             <Route path="/catalog/:gameId" element={<GameDetails />} />
 
                             <Route element={<RouteGuard />}>
-                                <Route path="/catalog/:gameId/edit" element={<EditGame />} />
+                                <Route path="/catalog/:gameId/edit" element={
+                                    <GameOwner>
+                                        <EditGame />
+                                    </GameOwner>
+                                } />
                                 <Route path="/create-game" element={<CreateGame />} />
                                 <Route path="/logout" element={<Logout />} />
                             </Route>
                         </Routes>
                     </main>
-                    
+
                 </div>
             </GameProvider>
         </AuthProvider>
