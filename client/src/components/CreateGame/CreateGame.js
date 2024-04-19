@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { useForm } from "../../hooks/useForm";
+import { useGameContext } from "../../contexts/GameContext";
 
-export const CreateGame = ({
-    onCreateGameSubmit
-}) => {
-    const {values, changeHandler, onSubmit} = useForm({
+export const CreateGame = () => {
+    const { onCreateGameSubmit } = useGameContext();
+    const { values, changeHandler, onSubmit } = useForm({
         title: '',
         category: '',
         maxLevel: '',
