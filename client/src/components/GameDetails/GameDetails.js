@@ -8,9 +8,11 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { gameReducer } from "../../reducers/gameReducer";
 
 import { AddComment } from "./AddComment/AddComment";
+import { useGameContext } from "../../contexts/GameContext";
 
 export const GameDetails = () => {
     const { gameId } = useParams();
+    const { deleteGame } = useGameContext();
     const { userId, isAuthenticated, userEmail } = useAuthContext();
     const [game, dispatch] = useReducer(gameReducer, {});
     const gameService = useService(gameServiceFactory);
@@ -27,7 +29,7 @@ export const GameDetails = () => {
                     comments
                 };
 
-                dispatch({type: 'GAME_FETCH', payload: gameState});
+                dispatch({ type: 'GAME_FETCH', payload: gameState });
             });
     }, [gameId]);
 
@@ -44,9 +46,15 @@ export const GameDetails = () => {
     const isOwner = game._ownerId === userId;
 
     const onDeleteGame = async () => {
-        await gameService.delete(gameId);
-        
-        navigate('/catalog');
+        const result = window.confirm(`Are you sure you want to delete ${game.title}`);
+
+        if (result) {
+            await gameService.delete(gameId);
+
+            deleteGame(game._id);
+            
+            navigate('/catalog');
+        };
     };
 
     return (
@@ -86,7 +94,7 @@ export const GameDetails = () => {
                 )}
             </div>
 
-            {isAuthenticated && <AddComment onCommentSubmit={onCommentSubmit}/>}
+            {isAuthenticated && <AddComment onCommentSubmit={onCommentSubmit} />}
 
         </section>
     );

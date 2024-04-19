@@ -5,13 +5,13 @@ import { useAuthContext } from "../../contexts/AuthContext";
 export const GameOwner = ({
     children
 }) => {
-    const {gameId} = useParams();
-    const {getGame} = useGameContext();
-    const {userId} = useAuthContext();
+    const { gameId } = useParams();
+    const { getGame } = useGameContext();
+    const { userId } = useAuthContext();
 
     const currentGame = getGame(gameId);
 
-    if (currentGame._ownerId !== userId) {
+    if (currentGame && currentGame._ownerId !== userId) {
         return <Navigate to={`/catalog/${gameId}`} replace />
     }
 

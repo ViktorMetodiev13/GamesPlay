@@ -39,10 +39,20 @@ export const GameProvider = ({
         navigate(`/catalog/${gameId}`);
     };
 
+    const deleteGame = async (gameId) => {
+        setGames(state => state.filter(game => game._id !== gameId));
+    };
+
+    const getGame = (gameId) => {
+        return games.find(game => game._id === gameId);
+    };
+
     const contextValues = {
         games,
+        deleteGame,
         onCreateGameSubmit,
         onGameEditSubmit,
+        getGame,
     };
 
     return (
