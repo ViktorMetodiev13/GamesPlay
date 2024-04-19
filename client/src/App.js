@@ -13,6 +13,7 @@ import { Catalog } from "./components/Catalog/Catalog";
 import { GameDetails } from "./components/GameDetails/GameDetails";
 import { Logout } from "./components/Logout/Logout";
 import { EditGame } from "./components/EditGame/EditGame";
+import { RouteGuard } from "./components/common/RouteGuard";
 
 
 function App() {
@@ -54,12 +55,15 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />
-                        <Route path="/logout" element={<Logout />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/create-game" element={<CreateGame onCreateGameSubmit={onCreateGameSubmit} />} />
                         <Route path="/catalog" element={<Catalog games={games} />} />
                         <Route path="/catalog/:gameId" element={<GameDetails />} />
-                        <Route path="/catalog/:gameId/edit" element={<EditGame onGameEditSubmit={onGameEditSubmit} />} />
+
+                        <Route element={<RouteGuard />}>
+                            <Route path="/catalog/:gameId/edit" element={<EditGame onGameEditSubmit={onGameEditSubmit} />} />
+                            <Route path="/create-game" element={<CreateGame onCreateGameSubmit={onCreateGameSubmit} />} />
+                            <Route path="/logout" element={<Logout />} />
+                        </Route>
                     </Routes>
                 </main>
 
