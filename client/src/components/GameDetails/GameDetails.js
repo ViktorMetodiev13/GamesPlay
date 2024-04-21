@@ -46,7 +46,7 @@ export const GameDetails = () => {
 
     const onDeleteClick = async () => {
         // eslint-disable-next-line no-restricted-globals
-        const result = confirm(`Are you sure you want to delete ${game.title}`);
+        const result = confirm(`Are you sure you want to delete ${game.title}?`);
 
         if (result) {
             await gameService.delete(game._id);
