@@ -29,6 +29,7 @@ export const AuthProvider = ({
     const onRegisterSubmit = async (values) => {
         const { confirmPassword, ...registerData } = values;
         if (confirmPassword !== registerData.password) {
+            alert("Passwords don\'t match");
             return;
         }
 

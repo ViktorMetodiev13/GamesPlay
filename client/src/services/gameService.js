@@ -20,16 +20,13 @@ export const gameServiceFactory = (token) => {
     
     const create = async (gameData) => {
         const result = await request.post(baseUrl, gameData);
-    
-        console.log(result);
-    
+        
         return result;
     };
     
     const edit = (gameId, data) => request.put(`${baseUrl}/${gameId}`, data);
 
     const deleteGame = (gameId) => request.delete(`${baseUrl}/${gameId}`);
-
 
     return {
         getAll,

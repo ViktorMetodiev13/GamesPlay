@@ -39,12 +39,6 @@ function App() {
                                 <Route path='/create-game' element={<CreateGame />} />
                                 <Route path='/logout' element={<Logout />} />
                             </Route>
-
-                            {/* <Route path='/create-game' element={
-                            <RouteGuard>
-                                <CreateGame onCreateGameSubmit={onCreateGameSubmit} />
-                            </RouteGuard>
-                        } /> */}
                         </Routes>
                     </main>
 
