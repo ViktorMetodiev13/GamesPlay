@@ -9,7 +9,7 @@ export const Home = () => {
         fetch('http://localhost:3030/data/games')
             .then(res => res.json())
             .then(result => {
-                setLastestGames(result);
+                setLastestGames(result.slice(-3));
             })
     }, [])
     
