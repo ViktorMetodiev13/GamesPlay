@@ -1,37 +1,32 @@
-{
-    "fc9c8323-5a02-4d1a-815b-e116d6a73f98": {
-        "title": "Counter Strike 2",
-        "category": "shooting, 5v5, competitive",
-        "maxLevel": "40",
-        "imageUrl": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRi3Y52UizXitbh4DWaEcY-QrweJJqBsSzWwnBJO-A4XLfrBRyIzHrryBFmPCZYboZhe-eHUg",
-        "summary": "Very fun to play game, I recommend it!",
-        "_id": "fc9c8323-5a02-4d1a-815b-e116d6a73f98",
-        "comments": {
-            "8afe273a-3baf-4f52-8af6-6ae0ac304b6b": {
-                "username": "Your mum is in my car",
-                "comment": "Fascinating game, fun to play but extremely toxic on times.",
-                "_id": "8afe273a-3baf-4f52-8af6-6ae0ac304b6b"
-            },
-            "68ea49e3-5089-4525-8c4c-120cfbe5c734": {
-                "username": "test",
-                "comment": "testtss",
-                "_id": "68ea49e3-5089-4525-8c4c-120cfbe5c734"
-            }
-        }
+[
+    {
+        "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
+        "title": "Test",
+        "category": "Action",
+        "maxLevel": "70",
+        "imageUrl": "/images/CoverFire.png",
+        "summary": "Best action shooter game, easy controls, realistic 3D graphics and fun offline missions. Get your best shooting gun and take to action!",
+        "_createdOn": 1617194128618,
+        "_id": "ff436770-76c5-40e2-b231-77409eda7a61"
     },
-    "4c5677d2-00f8-41a3-8c6a-606a3897cb4c": {
-        "title": "League of Legends",
-        "category": "fantasy, 5v5, competitive",
-        "maxLevel": "2000",
-        "imageUrl": "https://cdn1.epicgames.com/offer/24b9b5e323bc40eea252a10cdd3b2f10/EGS_LeagueofLegends_RiotGames_S1_2560x1440-80471666c140f790f28dff68d72c384b",
-        "summary": "Game with spells and a lot of magic.",
-        "_id": "4c5677d2-00f8-41a3-8c6a-606a3897cb4c",
-        "comments": {
-            "9e6025d5-b148-41b4-b2f8-be55ff7894e9": {
-                "username": "Niki",
-                "comment": "I like this game a lot! You should try it guys :D",
-                "_id": "9e6025d5-b148-41b4-b2f8-be55ff7894e9"
-            }
-        }
+    {
+        "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
+        "title": "MineCraft",
+        "category": "Arcade",
+        "maxLevel": "250",
+        "imageUrl": "/images/MineCraft.png",
+        "summary": "Set in a world where fantasy creatures live side by side with humans. A human cop is forced to work with an Orc to find a weapon everyone is prepared to kill for. Set in a world where fantasy creatures live side by side with humans. A human cop is forced to work with an Orc to find a weapon everyone is prepared to kill for.",
+        "_createdOn": 1617194210928,
+        "_id": "1840a313-225c-416a-817a-9954d4609f7c"
+    },
+    {
+        "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
+        "title": "test game",
+        "category": "testing",
+        "maxLevel": "10",
+        "imageUrl": "https://media.cnn.com/api/v1/images/stellar/prod/240116120407-bill-gates-091323.jpg?c=original",
+        "summary": "testin teh test of the tests",
+        "_createdOn": 1725102545269,
+        "_id": "315c234d-76a6-438b-818a-be495d858674"
     }
-}
+]

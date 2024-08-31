@@ -27,7 +27,7 @@
 .brand-logo {
     height: 100px;
     width: 100px;
-    /* background: url("../images/icon-gamepad-2.png"); */
+    background: url("../../../public/images/icon-gamepad-2.png");
     margin: auto;
     border-radius: 50%;
     box-sizing: border-box;
