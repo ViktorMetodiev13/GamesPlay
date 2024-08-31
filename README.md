@@ -12,7 +12,7 @@ GamesPlay offers a straightforward and intuitive platform for accessing and crea
 ## Technologies Used
 
 ### Client-Side
-- **React**
+- **ReactJS**
 - **CSS3**
 
 ### Server-Side

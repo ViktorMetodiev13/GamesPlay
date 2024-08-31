@@ -13,7 +13,11 @@ export const Home = () => {
         fetch('http://localhost:3030/data/games')
             .then(res => res.json())
             .then(result => {
+<<<<<<< HEAD
                 setLastestGames(result.slice(-3).reverse());
+=======
+                setLastestGames(result.slice(-3));
+>>>>>>> 0710888a5288ff35d322dacaf703d194658acdcc
             })
     }, [])
     
