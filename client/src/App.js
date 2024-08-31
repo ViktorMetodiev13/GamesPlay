@@ -1,3 +1,5 @@
+import "./app.css";
+
 import { Routes, Route } from 'react-router-dom';
 
 import { AuthProvider } from './contexts/AuthContext';

@@ -1,6 +1,10 @@
+import "./welcome.css";
+
 import { useEffect, useState } from "react";
 
 import { LastestGameItem } from "./LastestGameItem/LastestGameItem";
+
+import hero from './images/four_slider_img01.png';
 
 export const Home = () => {
     const [lastestGames, setLastestGames] = useState([]);
@@ -9,7 +13,7 @@ export const Home = () => {
         fetch('http://localhost:3030/data/games')
             .then(res => res.json())
             .then(result => {
-                setLastestGames(result);
+                setLastestGames(result.slice(-3));
             })
     }, [])
     
@@ -20,7 +24,7 @@ export const Home = () => {
                 <h2>ALL new games are</h2>
                 <h3>Only in GamesPlay</h3>
             </div>
-            <img src="./images/four_slider_img01.png" alt="hero" />
+            <img src={hero} alt="hero" />
 
             <div id="home-page">
                 <h1>Latest Games</h1>

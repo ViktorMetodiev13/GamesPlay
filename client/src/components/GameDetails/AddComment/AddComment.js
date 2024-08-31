@@ -1,3 +1,5 @@
+import "./comments.css";
+
 import { useForm } from "../../../hooks/useForm";
 
 export const AddComment = ({

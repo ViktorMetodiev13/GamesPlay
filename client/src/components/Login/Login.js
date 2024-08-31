@@ -1,3 +1,5 @@
+import './login-register.css';
+
 import { Link } from "react-router-dom";
 
 import { useAuthContext } from "../../contexts/AuthContext";
@@ -8,10 +10,7 @@ const LoginFormKeys = {
     Password: 'password'
 };
 
-export const Login = ({
-    // auth,
-}) => {
-    // const { onLoginSubmit } = auth;
+export const Login = () => {
     const { onLoginSubmit } = useAuthContext();
     const { values, changeHandler, onSubmit } = useForm({
         [LoginFormKeys.Email]: '',
@@ -51,5 +50,3 @@ export const Login = ({
         </section>
     );
 }
-
-// export default withAuth(Login);

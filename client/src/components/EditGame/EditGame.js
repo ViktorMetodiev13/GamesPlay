@@ -1,3 +1,5 @@
+import "./create-edit.css";
+
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGameContext } from "../../contexts/GameContext";

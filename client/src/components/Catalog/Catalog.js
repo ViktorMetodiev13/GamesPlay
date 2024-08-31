@@ -1,3 +1,5 @@
+import "./all-games.css";
+
 import { useGameContext } from "../../contexts/GameContext";
 
 import { CatalogItem } from "./CatalogItem/CatalogItem";

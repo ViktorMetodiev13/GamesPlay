@@ -1,3 +1,5 @@
+import "./create-edit.css";
+
 import { useGameContext } from '../../contexts/GameContext';
 import { useForm } from '../../hooks/useForm';
 
